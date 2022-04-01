@@ -156,7 +156,7 @@ const Swap = () => {
             style={{ cursor: "pointer" }}
           >
             <span className="box-url mt-5">
-              <img src="./img/wallet/1.png" alt="" className="mb20" />
+              <img src={process.env.PUBLIC_URL + "/img/wallet/1.png"} alt="" className="mb20" />
               <h4>Metamask</h4>
               <p>Please use Metamask to play the game</p>
             </span>

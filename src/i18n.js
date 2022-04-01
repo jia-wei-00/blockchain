@@ -14,7 +14,7 @@ export const I18nLoader = ({ children }) => {
         lng: "en",
         backend: {
           /* translation file path */
-          loadPath: "/assets/i18n/{{ns}}/{{lng}}.json",
+          loadPath: process.env.PUBLIC_URL + "/assets/i18n/{{ns}}/{{lng}}.json",
         },
         fallbackLng: "en",
         debug: false,
