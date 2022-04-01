@@ -21,6 +21,7 @@ import hovernft4 from "../../assets/img/img/home/name4.png";
 import hovernft5 from "../../assets/img/img/home/name5.png";
 import card from "../../assets/img/img/home/card.jpg";
 import { useTranslation } from "react-i18next";
+import Inventory from "./inventory";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader .logo .d-block{
@@ -295,60 +296,7 @@ const Shop = () => {
         </ul>
         <div>
           {/* ITEMS */}
-          {openMenu && (
-            <div className="tab-1 onStep fadeIn">
-              <div className="row">
-                {data.getPlayerNFT.length > 0 ? (
-                  data.getPlayerNFT.map((nft, index) => {
-                    // eslint-disable-line
-                    return (
-                      <div
-                        key={index}
-                        className="d-item col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-4"
-                      >
-                        <div className="nft-card">
-                          <div className="gradient-box-shadow ">
-                            <div
-                              className="gradient-box-shadow-inner"
-                              style={{ padding: "15px" }}
-                            >
-                              <div className="position-relative">
-                                <Image
-                                  src={
-                                    nft.rarity === "5"
-                                      ? nft5
-                                      : nft.rarity === "4"
-                                      ? nft4
-                                      : nft.rarity === "3"
-                                      ? nft3
-                                      : nft.rarity === "2"
-                                      ? nft2
-                                      : nft.rarity === "1"
-                                      ? nft1
-                                      : null
-                                  }
-                                  alt="nft_image"
-                                  className="w-100"
-                                />
-                              </div>
-                              <div className="text-center ">
-                                <p className="m-0 text-small text-secondary">
-                                  {t("NFTId.label")} : #
-                                  {nft.nftid.toString().padStart(5, "0")}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p className="text-center">{t("noData.label")}</p>
-                )}
-              </div>
-            </div>
-          )}
+          {openMenu && <Inventory />}
 
           {/* ON SALES */}
           {openMenu1 && (
