@@ -1,5 +1,4 @@
 import React from "react";
-import { Router, Location, Redirect } from "@reach/router";
 import ScrollToTopBtn from "./components/menu/ScrollToTop";
 import Header from "./components/menu/header";
 import Swap from "./components/views/swap";
@@ -10,6 +9,7 @@ import Marketplace from "./components/views/marketplace";
 import NFT from "./components/views/nft";
 import NFTDetail from "./components/views/nftDetail";
 import Cronjob from "./components/views/cronjob";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -24,37 +24,18 @@ export const ScrollTop = ({ children, location }) => {
   return children;
 };
 
-const PosedRouter = ({ children }) => (
-  <Location>
-    {({ location }) => (
-      <div id="routerhang">
-        <div key={location.key}>
-          <Router location={location}>{children}</Router>
-        </div>
-      </div>
-    )}
-  </Location>
-);
-
 const app = () => (
   <div className="wraper">
     <GlobalStyles />
-    <Header />
-    <PosedRouter>
-      <ScrollTop path="/">
-        <Home exact path="/">
-          <Redirect to="/home" />
-        </Home>
-        <Shop path="/shop" />
-        <MysteryBox path="/mysteryBox" />
-        <Marketplace path="/marketplace" />
-        <NFT path="/nft" />
-        <NFTDetail path="/nftDetail/:event/:nftId" />
-        <NFTDetail path="/nftDetail/:nftId" />
-        <Cronjob path="/cronjob" />
-      </ScrollTop>
-    </PosedRouter>
-    <ScrollToTopBtn />
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <ScrollToTopBtn />
+    </BrowserRouter>
   </div>
 );
 export default app;

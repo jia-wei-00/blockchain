@@ -3,7 +3,7 @@ import Breakpoint, {
   BreakpointProvider,
   setDefaultBreakpoints,
 } from "react-socks";
-import { Link } from "@reach/router";
+import { NavLink } from "react-router-dom";
 // import useOnclickOutside from "react-cool-onclickoutside";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,19 +15,6 @@ import useSharableState from "../../../src/SharableState.js";
 import { useBetween } from "use-between";
 
 setDefaultBreakpoints([{ xs: 0 }, { l: 1199 }, { xl: 1200 }]);
-
-const NavLink = (props) => (
-  <Link
-    {...props}
-    getProps={({ isCurrent }) => {
-      // the object returned here is passed to the
-      // anchor element's props
-      return {
-        className: isCurrent ? "active" : "non-active",
-      };
-    }}
-  />
-);
 
 const Header = () => {
   const { t } = useTranslation();
@@ -68,16 +55,6 @@ const Header = () => {
     <header id="myHeader" className="navbar white">
       <div className="container">
         <div className="row w-100-nav">
-          <div className="logo px-0">
-            <div className="navbar-title navbar-item">
-              <NavLink to="/">
-                <img src={logo} className="img-fluid d-block" alt="#" />
-                <img src={logo} className="img-fluid d-3" alt="#" />
-                <img src={logo} className="img-fluid d-none" alt="#" />
-              </NavLink>
-            </div>
-          </div>
-
           <BreakpointProvider>
             {/*SCREEN RESOLUTION <1200 */}
             {/* <Breakpoint l down>
@@ -319,8 +296,8 @@ const Header = () => {
             <Breakpoint xl>
               <div className="menu">
                 <div className="navbar-item">
-                  {/* SPACE-ALPACA */}
                   <NavLink to="/home">
+                    {/* SPACE-ALPACA */}
                     {t("home.label")}
                     <span className="lines"></span>
                   </NavLink>
@@ -349,7 +326,7 @@ const Header = () => {
                     <span className="lines"></span>
                   </NavLink>
                 </div>
-                
+
                 {/* HOME */}
                 {/* <div className="navbar-item">
                   <div ref={ref}>
