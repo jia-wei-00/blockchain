@@ -65,7 +65,8 @@ const Inventory = () => {
                         ? nft2
                         : nft.rarity === "1"
                         ? nft1
-                        : null
+                        : nft.rarity === "1"
+                        ? nft6
                     }
                     className="nft__item_preview"
                     style={
