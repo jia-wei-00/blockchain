@@ -30,9 +30,9 @@ const app = () => (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/blockchain" element={<Home />} />
+        <Route path="/blockchain/shop" element={<Shop />} />
+        <Route path="*" element={<Navigate to="/blockchain" replace />} />
       </Routes>
       <ScrollToTopBtn />
     </BrowserRouter>
