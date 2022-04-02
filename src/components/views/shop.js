@@ -8,18 +8,6 @@ import useSharableState from "../../../src/SharableState.js";
 import { css } from "@emotion/react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { fetchData } from "../../redux/data/dataActions";
-import Web3Modal from "web3modal";
-import nft1 from "../../assets/img/img/home/1.png";
-import nft2 from "../../assets/img/img/home/2.png";
-import nft3 from "../../assets/img/img/home/3.png";
-import nft4 from "../../assets/img/img/home/4.png";
-import nft5 from "../../assets/img/img/home/5.png";
-import hovernft1 from "../../assets/img/img/home/name1.png";
-import hovernft2 from "../../assets/img/img/home/name2.png";
-import hovernft3 from "../../assets/img/img/home/name3.png";
-import hovernft4 from "../../assets/img/img/home/name4.png";
-import hovernft5 from "../../assets/img/img/home/name5.png";
-import card from "../../assets/img/img/home/card.jpg";
 import { useTranslation } from "react-i18next";
 import Inventory from "./inventory";
 
@@ -153,7 +141,7 @@ const Shop = () => {
           onClick={buyNFT}
           disabled={loading}
         >
-          Buy
+          Buy (1 NFT = 1 JTOKEN)
         </button>
       );
     } else {
@@ -226,7 +214,6 @@ const Shop = () => {
   for (var i = 0; i < data.getPlayerNFT.length; i++) {
     items++;
   }
-  console.log(data.getPlayerNFT);
 
   useEffect(() => {
     if (blockchain.account !== null) {
@@ -239,36 +226,14 @@ const Shop = () => {
     <div>
       <GlobalStyles />
       <section className="mt-5 no-bottom">
-        <div className="scroll home-margin nft-bg">
-          <div className="wrap-img wrap-img1">
-            <Image className="nft-image img1" src={nft1}></Image>
-            <Image
-              className="nft-name"
-              src={hovernft1}
-              style={{ left: "-7px" }}
-            ></Image>
-          </div>
-          <div className="wrap-img wrap-img1">
-            <Image className="nft-image img2" src={nft2}></Image>
-            <Image className="nft-name" src={hovernft2}></Image>
-          </div>
-          <div className="wrap-img wrap-img1">
-            <Image className="nft-image img1" src={nft3}></Image>
-            <Image className="nft-name" src={hovernft3}></Image>
-          </div>
-          <div className="wrap-img wrap-img1">
-            <Image className="nft-image img4" src={nft4}></Image>
-            <Image className="nft-name" src={hovernft4}></Image>
-          </div>
-          <div className="wrap-img wrap-img1">
-            <Image className="nft-image img5" src={nft5}></Image>
-            <Image className="nft-name" src={hovernft5}></Image>
-          </div>
-        </div>
         <div className="row justify-content-center mt-5">
           <div className="col-10">
             <span className="buy-nft">
-              <Image src={card} className="mb-4"></Image>
+              <div className="row justify-content-center mb-3">
+                <div className="nft-card-question col-md-3">
+                  <i className="fa fa-question" />
+                </div>
+              </div>
               <Row className="justify-content-center">{renderBtn()}</Row>
             </span>
           </div>
@@ -316,7 +281,7 @@ const Shop = () => {
                               style={{ padding: "15px" }}
                             >
                               <div className="position-relative">
-                                <Image
+                                {/* <Image
                                   src={
                                     nft.rarity === "5"
                                       ? nft5
@@ -332,7 +297,7 @@ const Shop = () => {
                                   }
                                   alt="nft_image"
                                   className="w-100"
-                                />
+                                /> */}
                               </div>
                             </div>
                           </div>

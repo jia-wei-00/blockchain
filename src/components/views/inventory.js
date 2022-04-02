@@ -1,27 +1,46 @@
 import React, { useState, useEffect } from "react";
-import nft1 from "../../assets/img/img/home/1.png";
-import nft2 from "../../assets/img/img/home/2.png";
+import nft1 from "../../assets/img/img/home/rare1.gif";
+import nft2 from "../../assets/img/img/home/rare6.gif";
 import nft3 from "../../assets/img/img/home/3.png";
 import nft4 from "../../assets/img/img/home/4.png";
 import nft5 from "../../assets/img/img/home/5.png";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { Row, Col, Modal, Image } from "react-bootstrap";
+import blockchainReducer from "../../redux/blockchain/blockchainReducer";
 
 const Inventory = () => {
   const data = useSelector((state) => state.data);
+  const blockchain = useSelector((state) => state.blockchain);
   const [loadAmount, setLoadAmount] = useState(4);
   const [inventory, setInventory] = useState([]);
   const [inventoryCount, setInventoryCount] = useState(0);
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [nftid, setId] = useState("");
+  const [rarity, setRarity] = useState("");
+
+  const openModal = (rarity, id) => {
+    // setShowModal(true);
+    // setId(id);
+    // setRarity(rarity);
+  };
+
+  const retrieveNFT = () => {
+    if (data.getPlayerNFT.length !== 0) {
+      setInventory(data.getPlayerNFT.slice(0, loadAmount));
+      setInventoryCount(data.getPlayerNFT.length);
+    }
+  };
 
   const loadMore = () => {
     setLoadAmount(loadAmount + 4);
   };
 
   useEffect(() => {
-    setInventory(data.getPlayerNFT.slice(0, loadAmount));
-    setInventoryCount(data.getPlayerNFT.length);
-  }, [loadAmount, data.getPlayerNFT]);
+    retrieveNFT();
+  }, [loadAmount, data.getPlayerNFT.length]);
 
   return (
     <div className="row">
@@ -49,7 +68,21 @@ const Inventory = () => {
                         : null
                     }
                     className="nft__item_preview"
-                    alt=""
+                    style={
+                        nft.rarity === "5"
+                        ? {width: "300px"}
+                        : nft.rarity === "4"
+                        ? {width: "300px"}
+                        : nft.rarity === "3"
+                        ? {width: "150px"}
+                        : nft.rarity === "2"
+                        ? {width: "210px"}
+                        : nft.rarity === "1"
+                        ? {width: "300px"}
+                        : nft.rarity === "6"
+                        ? {width: "180px"}
+                        : null
+                    }
                   />
                 </span>
               </div>
@@ -73,7 +106,7 @@ const Inventory = () => {
                     : null}
                 </h4>
                 <div className="nft__item_action mb-4">
-                  <span onClick={() => window.open(nft.bidLink, "_self")}>
+                  <span onClick={openModal(nft.rarity, nft.nftid)}>
                     {t("sell.label")}
                   </span>
                 </div>
@@ -92,6 +125,40 @@ const Inventory = () => {
           </span>
         </div>
       )}
+
+      {/* GO TO NFT MODAL*/}
+      <Modal show={showModal === true}>
+        <Modal.Body className="nft_shadow text-center text-white gradient-box-shadow position-relative">
+          <div className="gradient-box-shadow-inner">
+            <h3>{t("mysteryBox.label")}</h3>
+            <Row className="justify-content-center">
+              <Row className="justify-content-center mt-3">
+                <Col md={5}>
+                  <div className="position-relative">
+                    {/* <Image
+                      src={
+                        rarity === "5"
+                          ? nft5
+                          : rarity === "4"
+                          ? nft4
+                          : rarity === "3"
+                          ? nft3
+                          : rarity === "2"
+                          ? nft2
+                          : rarity === "1"
+                          ? nft1
+                          : null
+                      }
+                      className="img-fluid img-rounded mb-sm-30"
+                      alt=""
+                    /> */}
+                  </div>
+                </Col>
+              </Row>
+            </Row>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };

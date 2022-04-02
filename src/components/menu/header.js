@@ -309,20 +309,8 @@ const Header = () => {
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink to="/mysteryBox">
-                    {t("mysteryBox.label")}
-                    <span className="lines"></span>
-                  </NavLink>
-                </div>
-                <div className="navbar-item">
-                  <NavLink to="/marketplace">
+                  <NavLink to="/error">
                     {t("marketplace.label")}
-                    <span className="lines"></span>
-                  </NavLink>
-                </div>
-                <div className="navbar-item">
-                  <NavLink to="/nft">
-                    {t("myNFT.label")}
                     <span className="lines"></span>
                   </NavLink>
                 </div>

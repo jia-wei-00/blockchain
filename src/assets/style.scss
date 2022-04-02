@@ -2855,6 +2855,13 @@ i.font60 {
   color: transparent;
 }
 
+.nft-card-question {
+  text-align: center;
+  i {
+    font-size: 2500%;
+  }
+}
+
 a.nft-card:hover {
   color: transparent;
 }
@@ -2948,7 +2955,7 @@ a.nft-card:hover {
   width: 100%;
 }
 .nft__item img {
-  width: 200px;
+  width: 300px;
   height: 200px;
   border-radius: 8px;
   -moz-border-radius: 8px;
@@ -4175,6 +4182,9 @@ tr {
   }
   .scroll {
     justify-content: flex-start !important;
+  }
+  .btn-purple {
+    width: 100% !important;
   }
   .previousButton,
   .nextButton {
