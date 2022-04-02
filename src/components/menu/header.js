@@ -296,14 +296,14 @@ const Header = () => {
             <Breakpoint xl>
               <div className="menu">
                 <div className="navbar-item">
-                  <NavLink to="/blockchain/home">
+                  <NavLink to="/">
                     {/* SPACE-ALPACA */}
                     {t("home.label")}
                     <span className="lines"></span>
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink to="/blockchain/shop">
+                  <NavLink to="/shop">
                     {t("shop.label")}
                     <span className="lines"></span>
                   </NavLink>

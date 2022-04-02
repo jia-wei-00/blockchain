@@ -9,7 +9,7 @@ import Marketplace from "./components/views/marketplace";
 import NFT from "./components/views/nft";
 import NFTDetail from "./components/views/nftDetail";
 import Cronjob from "./components/views/cronjob";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { createGlobalStyle } from "styled-components";
 
@@ -27,15 +27,15 @@ export const ScrollTop = ({ children, location }) => {
 const app = () => (
   <div className="wraper">
     <GlobalStyles />
-    <BrowserRouter>
+    <HashRouter>
       <Header />
       <Routes>
-        <Route path="/blockchain" element={<Home />} />
-        <Route path="/blockchain/shop" element={<Shop />} />
-        <Route path="*" element={<Navigate to="/blockchain" replace />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <ScrollToTopBtn />
-    </BrowserRouter>
+    </HashRouter>
   </div>
 );
 export default app;
