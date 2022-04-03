@@ -1,8 +1,8 @@
 const useSharableState = () => {
   // CONTRACT ADDRESS
-  const JTOKENAddress = "0xdE22615aa9E674074bB6630Fce1872e89166d42C";
-  const RANDOMNFTAddress = "0x8A398dD4E2FCB2008df0e5e1bb5723AcA6622d3F";
-  const MarketPlaceAddress = "0x2168F5500e83A13599d8989f12Ed24456510C877";
+  const JTOKENAddress = "0x584833f1D4053351d8035D48a9cD84c97748E668";
+  const RANDOMNFTAddress = "0xB57De55F3e978f891C1Da66783E58c891e9b4a4d";
+  const MarketPlaceAddress = "0x3fBdDe781E32fC026C827D8Db91BFB5900090C16";
 
   return {
     JTOKENAddress,

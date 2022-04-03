@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+import nft0 from "../../assets/img/img/home/rare0.gif";
 import nft1 from "../../assets/img/img/home/rare1.gif";
-import nft2 from "../../assets/img/img/home/rare6.gif";
-import nft3 from "../../assets/img/img/home/3.png";
-import nft4 from "../../assets/img/img/home/4.png";
-import nft5 from "../../assets/img/img/home/5.png";
+import nft2 from "../../assets/img/img/home/rare2.gif";
+import nft3 from "../../assets/img/img/home/rare3.gif";
+import nft4 from "../../assets/img/img/home/rare4.gif";
+import nft5 from "../../assets/img/img/home/rare5.gif";
+import nft6 from "../../assets/img/img/home/rare6.gif";
+import nft7 from "../../assets/img/img/home/rare7.gif";
+import nft8 from "../../assets/img/img/home/rare8.gif";
+import nft9 from "../../assets/img/img/home/rare9.gif";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Row, Col, Modal, Image } from "react-bootstrap";
@@ -55,33 +60,50 @@ const Inventory = () => {
                 <span>
                   <img
                     src={
-                      nft.rarity === "5"
-                        ? nft5
-                        : nft.rarity === "4"
-                        ? nft4
-                        : nft.rarity === "3"
-                        ? nft3
-                        : nft.rarity === "2"
-                        ? nft2
+                      nft.rarity === "0"
+                        ? nft0
                         : nft.rarity === "1"
                         ? nft1
-                        : nft.rarity === "1"
+                        : nft.rarity === "2"
+                        ? nft2
+                        : nft.rarity === "3"
+                        ? nft3
+                        : nft.rarity === "4"
+                        ? nft4
+                        : nft.rarity === "5"
+                        ? nft5
+                        : nft.rarity === "6"
                         ? nft6
+                        : nft.rarity === "7"
+                        ? nft7
+                        : nft.rarity === "8"
+                        ? nft8
+                        : nft.rarity === "9"
+                        ? nft9
+                        : null
                     }
                     className="nft__item_preview"
                     style={
-                        nft.rarity === "5"
+                      nft.rarity === "0"
+                        ? {width: "0px"}
+                        : nft.rarity === "1"
                         ? {width: "300px"}
-                        : nft.rarity === "4"
-                        ? {width: "300px"}
-                        : nft.rarity === "3"
-                        ? {width: "150px"}
                         : nft.rarity === "2"
                         ? {width: "210px"}
-                        : nft.rarity === "1"
+                        : nft.rarity === "3"
+                        ? {width: "150px"}
+                        : nft.rarity === "4"
+                        ? {width: "300px"}
+                        : nft.rarity === "5"
                         ? {width: "300px"}
                         : nft.rarity === "6"
                         ? {width: "180px"}
+                        : nft.rarity === "7"
+                        ? {width: "0px"}
+                        : nft.rarity === "8"
+                        ? {width: "0px"}
+                        : nft.rarity === "9"
+                        ? {width: "0px"}
                         : null
                     }
                   />

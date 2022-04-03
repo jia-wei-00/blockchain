@@ -196,10 +196,10 @@ const Swap = () => {
                     <p>This game can buy NFT by using JTOKEN in this game.</p>
                   </li>
                   <li>
-                    <p>NFT in this game is random with rarity.</p>
+                    <p>NFT in this game will generate randomly.</p>
                   </li>
                   <li>
-                    <p>NFT can be sell in marketplace.</p>
+                    <p>NFT can be sell in marketplace. (under development)</p>
                   </li>
                 </ul>
               </Col>

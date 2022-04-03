@@ -39,35 +39,31 @@ contract RANDOMNFT is ERC721URIStorage, Ownable {
         require(checkHash == true, "Invalid Transfer Hash");
         ERC20(JTokenAddress).transferFrom(msg.sender, admin, price);
 
-        uint getrarity = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))) % 100;
-
-        if(getrarity < 1) {
-            rarity = 5;
-        } else if (getrarity >= 1 && getrarity < 6) {
-            rarity = 4;
-        } else if (getrarity >= 6 && getrarity < 16) {
-            rarity = 3;
-        } else if (getrarity >= 16 && getrarity < 51) {
-            rarity = 2;
-        } else if (getrarity >= 51 && getrarity <= 101){
-            rarity = 1;
-        } else {
-            revert("Error in getting rarity");
-        }
+        rarity = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))) % 10;
 
         _tokenIds.increment();
         _safeMint(msg.sender, _tokenIds.current());
 
-        if(rarity == 1) {
-            _setTokenURI(_tokenIds.current(), "1URL");
+        if(rarity == 0) {
+            _setTokenURI(_tokenIds.current(), "0URL");
+        } else if (rarity == 1 ) {
+            _setTokenURI(_tokenIds.current(), "1URL");  
         } else if (rarity == 2 ) {
             _setTokenURI(_tokenIds.current(), "2URL");  
         } else if (rarity == 3 ) {
-            _setTokenURI(_tokenIds.current(), "3URL");  
+            _setTokenURI(_tokenIds.current(), "3URL");
         } else if (rarity == 4 ) {
             _setTokenURI(_tokenIds.current(), "4URL");
-        } else if (rarity == 5 ) {
+        } else if (rarity == 5) {
             _setTokenURI(_tokenIds.current(), "5URL");
+        } else if (rarity == 6) {
+            _setTokenURI(_tokenIds.current(), "6URL");
+        } else if (rarity == 7) {
+            _setTokenURI(_tokenIds.current(), "7URL");
+        } else if (rarity == 8) {
+            _setTokenURI(_tokenIds.current(), "8URL");
+        } else if (rarity == 9) {
+            _setTokenURI(_tokenIds.current(), "9URL");
         } else {
             revert("Error in getting URL");
         }
