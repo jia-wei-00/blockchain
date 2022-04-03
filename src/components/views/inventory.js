@@ -11,7 +11,7 @@ import nft8 from "../../assets/img/img/home/rare8.gif";
 import nft9 from "../../assets/img/img/home/rare9.gif";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Row, Col, Modal, Image } from "react-bootstrap";
+import { Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import blockchainReducer from "../../redux/blockchain/blockchainReducer";
 
 const Inventory = () => {
@@ -22,15 +22,17 @@ const Inventory = () => {
   const [inventoryCount, setInventoryCount] = useState(0);
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [show, setShow] = useState(false);
   const [nftid, setId] = useState("");
   const [rarity, setRarity] = useState("");
+  const [amount, setAmount] = useState("");
 
-  const openModal = (rarity, id) => {
-    // setShowModal(true);
-    // setId(id);
-    // setRarity(rarity);
+  const handleShow = (rarity, id) => {
+    setShow(true);
+    setId(id);
+    setRarity(rarity);
   };
+  const handleClose = () => setShow(false);
 
   const retrieveNFT = () => {
     if (data.getPlayerNFT.length !== 0) {
@@ -46,6 +48,8 @@ const Inventory = () => {
   useEffect(() => {
     retrieveNFT();
   }, [loadAmount, data.getPlayerNFT.length]);
+
+  console.log(inventory);
 
   return (
     <div className="row">
@@ -85,25 +89,25 @@ const Inventory = () => {
                     className="nft__item_preview"
                     style={
                       nft.rarity === "0"
-                        ? {width: "0px"}
+                        ? { width: "300px" }
                         : nft.rarity === "1"
-                        ? {width: "300px"}
+                        ? { width: "300px" }
                         : nft.rarity === "2"
-                        ? {width: "210px"}
+                        ? { width: "210px" }
                         : nft.rarity === "3"
-                        ? {width: "150px"}
+                        ? { width: "150px" }
                         : nft.rarity === "4"
-                        ? {width: "300px"}
+                        ? { width: "300px" }
                         : nft.rarity === "5"
-                        ? {width: "300px"}
+                        ? { width: "300px" }
                         : nft.rarity === "6"
-                        ? {width: "180px"}
+                        ? { width: "180px" }
                         : nft.rarity === "7"
-                        ? {width: "0px"}
+                        ? { width: "300px" }
                         : nft.rarity === "8"
-                        ? {width: "0px"}
+                        ? { width: "300px" }
                         : nft.rarity === "9"
-                        ? {width: "0px"}
+                        ? { width: "300px" }
                         : null
                     }
                   />
@@ -116,20 +120,30 @@ const Inventory = () => {
               </div>
               <div className="nft__item_info">
                 <h4>
-                  {nft.rarity === "5"
-                    ? "R5 Name"
-                    : nft.rarity === "4"
-                    ? "R4 Name"
-                    : nft.rarity === "3"
-                    ? "R3 Name"
-                    : nft.rarity === "2"
-                    ? "R2 Name"
+                  {nft.rarity === "0"
+                    ? "Ninja - 1"
                     : nft.rarity === "1"
-                    ? "R1 Name"
+                    ? "Ninja - 2"
+                    : nft.rarity === "2"
+                    ? "Ninja - 3"
+                    : nft.rarity === "3"
+                    ? "Ninja - 4"
+                    : nft.rarity === "4"
+                    ? "Ninja - 5"
+                    : nft.rarity === "5"
+                    ? "Ninja - 6"
+                    : nft.rarity === "6"
+                    ? "Ninja - 7"
+                    : nft.rarity === "7"
+                    ? "Robot - 1"
+                    : nft.rarity === "8"
+                    ? "Robot - 2"
+                    : nft.rarity === "9"
+                    ? "Robot - 3"
                     : null}
                 </h4>
                 <div className="nft__item_action mb-4">
-                  <span onClick={openModal(nft.rarity, nft.nftid)}>
+                  <span onClick={() => handleShow(nft.rarity, nft.nftid)}>
                     {t("sell.label")}
                   </span>
                 </div>
@@ -149,38 +163,116 @@ const Inventory = () => {
         </div>
       )}
 
-      {/* GO TO NFT MODAL*/}
-      <Modal show={showModal === true}>
-        <Modal.Body className="nft_shadow text-center text-white gradient-box-shadow position-relative">
-          <div className="gradient-box-shadow-inner">
-            <h3>{t("mysteryBox.label")}</h3>
-            <Row className="justify-content-center">
-              <Row className="justify-content-center mt-3">
-                <Col md={5}>
-                  <div className="position-relative">
-                    {/* <Image
-                      src={
-                        rarity === "5"
-                          ? nft5
-                          : rarity === "4"
-                          ? nft4
-                          : rarity === "3"
-                          ? nft3
-                          : rarity === "2"
-                          ? nft2
-                          : rarity === "1"
-                          ? nft1
-                          : null
-                      }
-                      className="img-fluid img-rounded mb-sm-30"
-                      alt=""
-                    /> */}
-                  </div>
-                </Col>
-              </Row>
-            </Row>
+      {/* GO TO NFT MODAL */}
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title style={{ display: "flex" }}>
+            {rarity === "0"
+              ? "Ninja - 1"
+              : rarity === "1"
+              ? "Ninja - 2"
+              : rarity === "2"
+              ? "Ninja - 3"
+              : rarity === "3"
+              ? "Ninja - 4"
+              : rarity === "4"
+              ? "Ninja - 5"
+              : rarity === "5"
+              ? "Ninja - 6"
+              : rarity === "6"
+              ? "Ninja - 7"
+              : rarity === "7"
+              ? "Robot - 1"
+              : rarity === "8"
+              ? "Robot - 2"
+              : rarity === "9"
+              ? "Robot - 3"
+              : null}
+            <p className="m-0 text-small text-secondary mx-3">
+              {t("NFTId.label")} : #{nftid.toString().padStart(5, "0")}
+            </p>
+          </Modal.Title>
+          <i
+            onClick={loading ? undefined : handleClose}
+            aria-hidden="true"
+            className="icon_close"
+          />
+        </Modal.Header>
+        <Modal.Body>
+          <div className="nft__item_wrap">
+            <span>
+              <img
+                src={
+                  rarity === "0"
+                    ? nft0
+                    : rarity === "1"
+                    ? nft1
+                    : rarity === "2"
+                    ? nft2
+                    : rarity === "3"
+                    ? nft3
+                    : rarity === "4"
+                    ? nft4
+                    : rarity === "5"
+                    ? nft5
+                    : rarity === "6"
+                    ? nft6
+                    : rarity === "7"
+                    ? nft7
+                    : rarity === "8"
+                    ? nft8
+                    : rarity === "9"
+                    ? nft9
+                    : null
+                }
+                className="nft__item_preview"
+                style={
+                  rarity === "0"
+                    ? { width: "300px" }
+                    : rarity === "1"
+                    ? { width: "300px" }
+                    : rarity === "2"
+                    ? { width: "210px" }
+                    : rarity === "3"
+                    ? { width: "150px" }
+                    : rarity === "4"
+                    ? { width: "300px" }
+                    : rarity === "5"
+                    ? { width: "300px" }
+                    : rarity === "6"
+                    ? { width: "180px" }
+                    : rarity === "7"
+                    ? { width: "300px" }
+                    : rarity === "8"
+                    ? { width: "300px" }
+                    : rarity === "9"
+                    ? { width: "300px" }
+                    : null
+                }
+              />
+            </span>
           </div>
         </Modal.Body>
+        <Modal.Footer>
+          <InputGroup className="mb-3">
+            <FormControl
+              placeholder="Enter amount here"
+              type="number"
+              aria-label="Amount"
+              aria-describedby="basic-addon2"
+              style={{ textAlign: "right" }}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+            <Button variant="secondary" onClick={handleClose}>
+              Sell
+            </Button>
+          </InputGroup>
+        </Modal.Footer>
       </Modal>
     </div>
   );

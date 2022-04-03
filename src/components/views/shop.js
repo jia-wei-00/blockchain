@@ -137,7 +137,7 @@ const Shop = () => {
     if (blockchain.account !== null && approved !== "0") {
       display.push(
         <button
-          className="btn btn-purple mt-2 btn btn-primary"
+          className="btn btn-purple mt-2 mb-5 btn btn-primary"
           onClick={buyNFT}
           disabled={loading}
         >
@@ -148,7 +148,7 @@ const Shop = () => {
       display.push(
         <>
           <button
-            className="btn btn-purple mt-2 btn btn-primary"
+            className="btn btn-purple mt-2 mb-5 btn btn-primary"
             onClick={approveNFTAddress}
             disabled={loading}
           >

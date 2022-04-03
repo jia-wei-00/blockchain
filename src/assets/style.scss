@@ -133,7 +133,7 @@ strong {
   font-size: 11pt;
   color: $white;
   background: none;
-  border: 2px solid $color;
+  // border: 2px solid $color;
   border-radius: 0;
   padding: 10px 44px;
   -webkit-transition-delay: 0s;
@@ -3644,8 +3644,7 @@ img.img-rounded {
 }
 .form-control {
   padding: 10px;
-  margin-bottom: 20px;
-  border: none;
+  border: 1px solid #808080;
   background: none;
   border-radius: 6px;
   -moz-border-radius: 6px;
@@ -4480,13 +4479,33 @@ tr {
 }
 
 .modal-body {
-  padding: 0 40px 40px;
-  border-radius: 18px;
-  background: #061028;
+  background: rgb(82 82 82);
+}
+
+.modal-footer {
+  background: rgb(82 82 82);
+  border-color: grey;
+  border-bottom-left-radius: 19px;
+  border-bottom-right-radius: 19px;
+}
+
+.modal-header {
+  background: rgb(82 82 82);
+  border-color: grey;
+  border-top-left-radius: 19px;
+  border-top-right-radius: 19px;
+  i {
+    font-size: 30px;
+    cursor: pointer;
+  }
+  i:hover {
+    color: #303030;
+  }
 }
 
 .modal-content {
   border-radius: 20px;
+  border-color: grey;
 }
 
 .text-left {
