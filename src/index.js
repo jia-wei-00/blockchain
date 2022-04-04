@@ -7,7 +7,6 @@ import "../node_modules/et-line/style.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.js";
 import "./assets/style.scss";
-import LoadingScreen from "react-loading-screen";
 
 // import App from "./components/app";
 import App from "./App";
@@ -19,14 +18,7 @@ import store from "./redux/store";
 ReactDOM.render(
   <I18nLoader>
     <Provider store={store}>
-      <LoadingScreen
-        loading={false}
-        bgColor="rgba(100, 100, 100, 0.5)"
-        spinnerColor="#9ee5f8"
-        textColor="#676767"
-      >
-        <App />
-      </LoadingScreen>
+      <App />
     </Provider>
   </I18nLoader>,
   document.getElementById("root")

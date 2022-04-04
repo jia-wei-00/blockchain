@@ -10,6 +10,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { fetchData } from "../../redux/data/dataActions";
 import { useTranslation } from "react-i18next";
 import Inventory from "./inventory";
+import OnMarket from "./onmarket";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader .logo .d-block{
@@ -187,7 +188,6 @@ const Shop = () => {
       .once("error", (err) => {
         setLoading(false);
         console.log(err);
-        setLoading(false);
       })
       .then((receipt) => {
         setLoading(false);
@@ -264,53 +264,7 @@ const Shop = () => {
           {openMenu && <Inventory />}
 
           {/* ON SALES */}
-          {openMenu1 && (
-            <div className="tab-2 onStep fadeIn">
-              <div className="row">
-                {data.getSellingNFT.length > 0 ? (
-                  data.getSellingNFT.map((nft, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-4"
-                      >
-                        <div className="nft-card">
-                          <div className="gradient-box-shadow">
-                            <div
-                              className="gradient-box-shadow-inner"
-                              style={{ padding: "15px" }}
-                            >
-                              <div className="position-relative">
-                                {/* <Image
-                                  src={
-                                    nft.rarity === "5"
-                                      ? nft5
-                                      : nft.rarity === "4"
-                                      ? nft4
-                                      : nft.rarity === "3"
-                                      ? nft3
-                                      : nft.rarity === "2"
-                                      ? nft2
-                                      : nft.rarity === "1"
-                                      ? nft1
-                                      : null
-                                  }
-                                  alt="nft_image"
-                                  className="w-100"
-                                /> */}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p className="text-center">{t("noData.label")}</p>
-                )}
-              </div>
-            </div>
-          )}
+          {openMenu1 && <OnMarket />}
         </div>
       </section>
     </div>

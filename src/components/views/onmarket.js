@@ -11,10 +11,8 @@ import nft8 from "../../assets/img/img/home/rare8.gif";
 import nft9 from "../../assets/img/img/home/rare9.gif";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Button, Modal, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Modal, InputGroup, FormControl, Toast } from "react-bootstrap";
 import Web3 from "web3";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const Inventory = () => {
   const data = useSelector((state) => state.data);
@@ -45,21 +43,10 @@ const Inventory = () => {
   };
 
   const sellNFT = () => {
-    if (amount <= 0 ) {
-      toast.warn("Please insert a valid amount !", {
-        theme: "colored"
-      });
+    if (amount < 0 || amount === 0) {
+
     } else if (amount > 0) {
       setLoading(true);
-      const resolveAfter3Sec = new Promise(loading => setTimeout(!loading, 3000));
-      toast.promise(
-        resolveAfter3Sec,
-        {
-          pending: 'Promise is pending',
-          success: 'Promise resolved 👌',
-          error: 'Promise rejected 🤯'
-        }
-    )
       blockchain.MARKETPLACE.methods
         .createMarketItem(nftid, Web3.utils.toWei(String(amount), "ether"))
         .send({ from: blockchain.account })
@@ -316,8 +303,28 @@ const Inventory = () => {
           </InputGroup>
         </Modal.Footer>
       </Modal>
-
-      <ToastContainer />
+      {/* <div
+        style={{
+          position: "fixed",
+          top: 0,
+          right: 0,
+          zIndex: 9999,
+          float: "right",
+        }}
+      >
+        <Toast show="true" autohide>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+        </Toast>
+      </div> */}
     </div>
   );
 };
