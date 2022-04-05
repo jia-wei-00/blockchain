@@ -1,14 +1,14 @@
-import swapBackground from "../../assets/img/swap-bg.png";
 import { Image, Row, Col, Form, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
-import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
-import { useBetween } from "use-between";
-import useSharableState from "../../../src/SharableState.js";
-import { css } from "@emotion/react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { fetchData } from "../../redux/data/dataActions";
+import {
+  setLoadingTrue,
+  setLoadingFalse,
+} from "../../redux/loading/loadingActions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader .logo .d-block{
@@ -114,36 +114,39 @@ const Swap = () => {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state) => state.loading.loading);
 
-  const FaucetBtn = () => {
-    setLoading(true);
+  const FaucetBtn = async () => {
+    dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("100"), "ether");
     let tmp_hashedValue = amount + 1111;
     let hashedValue = Web3.utils.sha3(tmp_hashedValue, { encoding: "hex" });
     console.log(hashedValue);
-    blockchain.JTOKEN.methods
-      .JTokenFaucet(amount, hashedValue)
-      .send({ from: blockchain.account })
-      .once("error", (err) => {
-        console.log(err);
-        setLoading(false);
-      })
-      .then((receipt) => {
-        setLoading(false);
-        window.location.reload();
-      });
+    await toast.promise(
+      blockchain.JTOKEN.methods
+        .JTokenFaucet(amount, hashedValue)
+        .send({ from: blockchain.account })
+        .once("error", (err) => {
+          console.log(err);
+          dispatch(setLoadingFalse());
+        })
+        .then((receipt) => {
+          dispatch(setLoadingFalse());
+          window.location.reload();
+        }),
+      {
+        pending: "Loading... Please wait",
+        success: "Success 👌",
+        error: "Error occur 🤯",
+      }
+    );
   };
-
-  
 
   useEffect(() => {
     if (blockchain.account !== null) {
       dispatch(fetchData(blockchain.account));
     }
   }, [blockchain.JTOKEN]); // eslint-disable-line
-
-  
 
   return (
     <div>
@@ -156,7 +159,11 @@ const Swap = () => {
             style={{ cursor: "pointer" }}
           >
             <span className="box-url mt-5">
-              <img src={process.env.PUBLIC_URL + "/img/wallet/1.png"} alt="" className="mb20" />
+              <img
+                src={process.env.PUBLIC_URL + "/img/wallet/1.png"}
+                alt=""
+                className="mb20"
+              />
               <h4>Metamask</h4>
               <p>Please use Metamask to play the game</p>
             </span>
@@ -245,6 +252,7 @@ const Swap = () => {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 };

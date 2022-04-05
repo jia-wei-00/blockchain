@@ -1,17 +1,19 @@
 import { Image, Row, Col, Form, Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
-import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { useBetween } from "use-between";
 import useSharableState from "../../../src/SharableState.js";
-import { css } from "@emotion/react";
-import ClipLoader from "react-spinners/ClipLoader";
 import { fetchData } from "../../redux/data/dataActions";
-import { setLoadingTrue, setLoadingFalse } from "../../redux/loading/loadingActions";
+import {
+  setLoadingTrue,
+  setLoadingFalse,
+} from "../../redux/loading/loadingActions";
 import { useTranslation } from "react-i18next";
 import Inventory from "./inventory";
 import OnMarket from "./onmarket";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GlobalStyles = createGlobalStyle`
   header#myHeader .logo .d-block{
@@ -120,8 +122,7 @@ const Shop = () => {
   const data = useSelector((state) => state.data);
   const loading = useSelector((state) => state.loading.loading);
   const [approved, setApproved] = useState("");
-  const { JTOKENAddress, RANDOMNFTAddress } = useBetween(useSharableState);
-  const [nftSales, setNFTSales] = useState("");
+  const { RANDOMNFTAddress } = useBetween(useSharableState);
   const [openMenu, setOpenMenu] = useState(true);
   const [openMenu1, setOpenMenu1] = useState(false);
 
@@ -162,38 +163,52 @@ const Shop = () => {
     return display;
   };
 
-  const buyNFT = () => {
+  const buyNFT = async () => {
     dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("1"), "ether");
     let tmp_hashedValue = amount + 1111;
     let hashedValue = Web3.utils.sha3(tmp_hashedValue, { encoding: "hex" });
-    blockchain.RANDOMNFT.methods
-      .mintNFT(amount, hashedValue)
-      .send({ from: blockchain.account })
-      .once("error", (err) => {
-        console.log(err);
-        dispatch(setLoadingFalse());
-      })
-      .then((receipt) => {
-        dispatch(setLoadingFalse());
-        window.location.reload();
-      });
+    await toast.promise(
+      blockchain.RANDOMNFT.methods
+        .mintNFT(amount, hashedValue)
+        .send({ from: blockchain.account })
+        .once("error", (err) => {
+          console.log(err);
+          dispatch(setLoadingFalse());
+        })
+        .then((receipt) => {
+          dispatch(setLoadingFalse());
+          window.location.reload();
+        }),
+      {
+        pending: "Loading... Please wait",
+        success: "Success 👌",
+        error: "Error occur 🤯",
+      }
+    );
   };
 
-  const approveNFTAddress = () => {
+  const approveNFTAddress = async () => {
     dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("9999999999"), "ether");
-    blockchain.JTOKEN.methods
-      .approve(RANDOMNFTAddress, amount)
-      .send({ from: blockchain.account })
-      .once("error", (err) => {
-        dispatch(setLoadingFalse());
-        console.log(err);
-      })
-      .then((receipt) => {
-        dispatch(setLoadingFalse());
-        window.location.reload();
-      });
+    await toast.promise(
+      blockchain.JTOKEN.methods
+        .approve(RANDOMNFTAddress, amount)
+        .send({ from: blockchain.account })
+        .once("error", (err) => {
+          dispatch(setLoadingFalse());
+          console.log(err);
+        })
+        .then((receipt) => {
+          dispatch(setLoadingFalse());
+          window.location.reload();
+        }),
+      {
+        pending: "Loading... Please wait",
+        success: "Success 👌",
+        error: "Error occur 🤯",
+      }
+    );
   };
 
   const handleOnSalesClick = () => {
@@ -268,6 +283,7 @@ const Shop = () => {
           {openMenu1 && <OnMarket />}
         </div>
       </section>
+      <ToastContainer />
     </div>
   );
 };
