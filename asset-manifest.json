@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/blockchain/static/css/main.d03686a8.chunk.css",
-    "main.js": "/blockchain/static/js/main.525954a1.chunk.js",
-    "main.js.map": "/blockchain/static/js/main.525954a1.chunk.js.map",
+    "main.js": "/blockchain/static/js/main.4703a995.chunk.js",
+    "main.js.map": "/blockchain/static/js/main.4703a995.chunk.js.map",
     "runtime-main.js": "/blockchain/static/js/runtime-main.3b7bd0cb.js",
     "runtime-main.js.map": "/blockchain/static/js/runtime-main.3b7bd0cb.js.map",
     "static/css/2.e4e0784d.chunk.css": "/blockchain/static/css/2.e4e0784d.chunk.css",
@@ -46,6 +46,6 @@
     "static/css/2.e4e0784d.chunk.css",
     "static/js/2.6a62f6f3.chunk.js",
     "static/css/main.d03686a8.chunk.css",
-    "static/js/main.525954a1.chunk.js"
+    "static/js/main.4703a995.chunk.js"
   ]
 }
