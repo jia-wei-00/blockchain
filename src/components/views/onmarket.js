@@ -63,8 +63,6 @@ const Inventory = () => {
     setLoadAmount(loadAmount + 4);
   };
 
-  console.log("here", onMarket)
-
   useEffect(() => {
     retrieveOnMarketNFT();
   }, [loadAmount, data.getSellingNFT.length]);

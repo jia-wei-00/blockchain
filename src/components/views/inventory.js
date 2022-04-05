@@ -86,8 +86,6 @@ const Inventory = () => {
     retrieveNFT();
   }, [loadAmount, data.getPlayerNFT.length]);
 
-  console.log(inventory);
-
   return (
     <div className="row">
       {data.getPlayerNFT.length > 0 ? (
