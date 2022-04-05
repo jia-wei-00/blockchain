@@ -37,7 +37,7 @@ contract RANDOMNFT is ERC721URIStorage, Ownable {
         setHash(price);
         bool checkHash = getHashValue(encryptHashValue);    
         require(checkHash == true, "Invalid Transfer Hash");
-        ERC20(JTokenAddress).transferFrom(msg.sender, admin, price);
+        JTOKEN(JTokenAddress).transferFrom(msg.sender, admin, price);
 
         rarity = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender))) % 10;
 
@@ -91,16 +91,23 @@ contract RANDOMNFT is ERC721URIStorage, Ownable {
 
     //GET ALL NFT FOR THE ACCOUNT OWN
     function getAllTokensForUser(address account) public view returns (NFTS[] memory) {
+        uint256 nftCount;
         uint256 tokenCount = balanceOf(account);
+        uint256 totalNFTs = _tokenIds.current();
+
+        for (uint i = 1; i <= totalNFTs; i++) {
+            if (_tokenDetails[i].selling == false) {
+                nftCount++;
+            }
+        }
+
         if (tokenCount == 0) {
             return new NFTS[](0);
         } else {
-            NFTS[] memory result = new NFTS[](tokenCount);
-            uint256 totalNFTs = _tokenIds.current();
+            NFTS[] memory result = new NFTS[](nftCount);
             uint256 resultIndex = 0;
             for (uint i = 1; i <= totalNFTs; i++) {
-                if (ownerOf(i) == account) {
-                    // result[resultIndex] = i;
+                if (_tokenDetails[i].selling == false && ownerOf(i) == account) {
                     result[resultIndex] = _tokenDetails[i];
                     result[resultIndex].tokenURI = tokenURI(i);
                     resultIndex++;

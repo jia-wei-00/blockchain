@@ -8,6 +8,7 @@ import useSharableState from "../../../src/SharableState.js";
 import { css } from "@emotion/react";
 import ClipLoader from "react-spinners/ClipLoader";
 import { fetchData } from "../../redux/data/dataActions";
+import { setLoadingTrue, setLoadingFalse } from "../../redux/loading/loadingActions";
 import { useTranslation } from "react-i18next";
 import Inventory from "./inventory";
 import OnMarket from "./onmarket";
@@ -117,9 +118,9 @@ const Shop = () => {
   var Web3 = require("web3");
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
+  const loading = useSelector((state) => state.loading.loading);
   const [approved, setApproved] = useState("");
   const { JTOKENAddress, RANDOMNFTAddress } = useBetween(useSharableState);
-  const [loading, setLoading] = useState(false);
   const [nftSales, setNFTSales] = useState("");
   const [openMenu, setOpenMenu] = useState(true);
   const [openMenu1, setOpenMenu1] = useState(false);
@@ -162,7 +163,7 @@ const Shop = () => {
   };
 
   const buyNFT = () => {
-    setLoading(true);
+    dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("1"), "ether");
     let tmp_hashedValue = amount + 1111;
     let hashedValue = Web3.utils.sha3(tmp_hashedValue, { encoding: "hex" });
@@ -171,26 +172,26 @@ const Shop = () => {
       .send({ from: blockchain.account })
       .once("error", (err) => {
         console.log(err);
-        setLoading(false);
+        dispatch(setLoadingFalse());
       })
       .then((receipt) => {
-        setLoading(false);
+        dispatch(setLoadingFalse());
         window.location.reload();
       });
   };
 
   const approveNFTAddress = () => {
-    setLoading(true);
+    dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("9999999999"), "ether");
     blockchain.JTOKEN.methods
       .approve(RANDOMNFTAddress, amount)
       .send({ from: blockchain.account })
       .once("error", (err) => {
-        setLoading(false);
+        dispatch(setLoadingFalse());
         console.log(err);
       })
       .then((receipt) => {
-        setLoading(false);
+        dispatch(setLoadingFalse());
         window.location.reload();
       });
   };

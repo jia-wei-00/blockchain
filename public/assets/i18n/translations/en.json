@@ -87,5 +87,6 @@
   "inventory.label": "Inventory",
   "onmarket.label": "On Market",
   "NFTId.label": "ID",
-  "sell.label": "Sell"
+  "sell.label": "Sell",
+  "cancel.label": "Cancel"
 }

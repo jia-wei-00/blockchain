@@ -9,21 +9,23 @@ import nft6 from "../../assets/img/img/home/rare6.gif";
 import nft7 from "../../assets/img/img/home/rare7.gif";
 import nft8 from "../../assets/img/img/home/rare8.gif";
 import nft9 from "../../assets/img/img/home/rare9.gif";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import Web3 from "web3";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { setLoadingTrue, setLoadingFalse } from "../../redux/loading/loadingActions";
 
 const Inventory = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state) => state.data);
   const blockchain = useSelector((state) => state.blockchain);
+  const loading = useSelector((state) => state.loading);
   const [loadAmount, setLoadAmount] = useState(4);
   const [inventory, setInventory] = useState([]);
   const [inventoryCount, setInventoryCount] = useState(0);
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [nftid, setId] = useState("");
   const [rarity, setRarity] = useState("");
@@ -31,10 +33,14 @@ const Inventory = () => {
   const [priceSymbol] = useState(["e", "E", "+", "-"]);
 
   const handleShow = (rarity, id) => {
-    setShow(true);
-    setId(id);
-    setRarity(rarity);
+    if (!loading.loading) {
+      setShow(true);
+      setId(id);
+      setRarity(rarity);
+      setAmount("");
+    }
   };
+
   const handleClose = () => setShow(false);
 
   const retrieveNFT = () => {
@@ -44,33 +50,31 @@ const Inventory = () => {
     }
   };
 
-  const sellNFT = () => {
-    if (amount <= 0 ) {
+  const sellNFT = async () => {
+    if (amount <= 0) {
       toast.warn("Please insert a valid amount !", {
-        theme: "colored"
+        theme: "colored",
       });
     } else if (amount > 0) {
-      setLoading(true);
-      const resolveAfter3Sec = new Promise(loading => setTimeout(!loading, 3000));
-      toast.promise(
-        resolveAfter3Sec,
+      dispatch(setLoadingTrue());
+      await toast.promise(
+        blockchain.MARKETPLACE.methods
+          .createMarketItem(nftid, Web3.utils.toWei(String(amount), "ether"))
+          .send({ from: blockchain.account })
+          .once("error", (err) => {
+            console.log(err);
+            dispatch(setLoadingFalse());
+          })
+          .then((receipt) => {
+            dispatch(setLoadingFalse());
+            window.location.reload();
+          }),
         {
-          pending: 'Promise is pending',
-          success: 'Promise resolved 👌',
-          error: 'Promise rejected 🤯'
+          pending: "Loading... Please wait",
+          success: "Success 👌",
+          error: "Error occur 🤯",
         }
-    )
-      blockchain.MARKETPLACE.methods
-        .createMarketItem(nftid, Web3.utils.toWei(String(amount), "ether"))
-        .send({ from: blockchain.account })
-        .once("error", (err) => {
-          console.log(err);
-          setLoading(false);
-        })
-        .then((receipt) => {
-          setLoading(false);
-          window.location.reload();
-        });
+      );
     }
   };
 
@@ -122,7 +126,7 @@ const Inventory = () => {
                     className="nft__item_preview"
                     style={
                       nft.rarity === "0"
-                        ? { width: "300px" }
+                        ? { width: "200px" }
                         : nft.rarity === "1"
                         ? { width: "300px" }
                         : nft.rarity === "2"
@@ -130,7 +134,7 @@ const Inventory = () => {
                         : nft.rarity === "3"
                         ? { width: "150px" }
                         : nft.rarity === "4"
-                        ? { width: "300px" }
+                        ? { width: "200px" }
                         : nft.rarity === "5"
                         ? { width: "300px" }
                         : nft.rarity === "6"
@@ -138,7 +142,7 @@ const Inventory = () => {
                         : nft.rarity === "7"
                         ? { width: "300px" }
                         : nft.rarity === "8"
-                        ? { width: "300px" }
+                        ? { width: "250px" }
                         : nft.rarity === "9"
                         ? { width: "300px" }
                         : null
@@ -176,13 +180,7 @@ const Inventory = () => {
                     : null}
                 </h4>
                 <div className="nft__item_action mb-4">
-                  <span
-                    onClick={
-                      loading
-                        ? undefined
-                        : () => handleShow(nft.rarity, nft.nftid)
-                    }
-                  >
+                  <span onClick={() => handleShow(nft.rarity, nft.nftid)}>
                     {t("sell.label")}
                   </span>
                 </div>
@@ -237,7 +235,7 @@ const Inventory = () => {
             </p>
           </Modal.Title>
           <i
-            onClick={loading ? undefined : handleClose}
+            onClick={loading.loading ? undefined : handleClose}
             aria-hidden="true"
             className="icon_close"
           />
@@ -310,7 +308,11 @@ const Inventory = () => {
               }
               onChange={(e) => setAmount(e.target.value)}
             />
-            <Button variant="secondary" onClick={sellNFT} disabled={loading}>
+            <Button
+              variant="secondary"
+              onClick={loading.loading ? undefined : sellNFT}
+              disabled={loading.loading}
+            >
               Sell
             </Button>
           </InputGroup>

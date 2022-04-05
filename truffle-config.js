@@ -58,7 +58,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           mnemonic,
-          `https://data-seed-prebsc-2-s2.binance.org:8545`
+          `https://data-seed-prebsc-2-s1.binance.org:8545/`
         ),
       network_id: 97,
       confirmations: 1,
