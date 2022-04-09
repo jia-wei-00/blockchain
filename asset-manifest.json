@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/blockchain/static/css/main.2f94a801.chunk.css",
-    "main.js": "/blockchain/static/js/main.fe322ec7.chunk.js",
-    "main.js.map": "/blockchain/static/js/main.fe322ec7.chunk.js.map",
+    "main.js": "/blockchain/static/js/main.552942dd.chunk.js",
+    "main.js.map": "/blockchain/static/js/main.552942dd.chunk.js.map",
     "runtime-main.js": "/blockchain/static/js/runtime-main.3b7bd0cb.js",
     "runtime-main.js.map": "/blockchain/static/js/runtime-main.3b7bd0cb.js.map",
     "static/css/2.e4e0784d.chunk.css": "/blockchain/static/css/2.e4e0784d.chunk.css",
-    "static/js/2.9ca56171.chunk.js": "/blockchain/static/js/2.9ca56171.chunk.js",
-    "static/js/2.9ca56171.chunk.js.map": "/blockchain/static/js/2.9ca56171.chunk.js.map",
+    "static/js/2.ca2dc44c.chunk.js": "/blockchain/static/js/2.ca2dc44c.chunk.js",
+    "static/js/2.ca2dc44c.chunk.js.map": "/blockchain/static/js/2.ca2dc44c.chunk.js.map",
     "index.html": "/blockchain/index.html",
     "static/css/2.e4e0784d.chunk.css.map": "/blockchain/static/css/2.e4e0784d.chunk.css.map",
     "static/css/main.2f94a801.chunk.css.map": "/blockchain/static/css/main.2f94a801.chunk.css.map",
-    "static/js/2.9ca56171.chunk.js.LICENSE.txt": "/blockchain/static/js/2.9ca56171.chunk.js.LICENSE.txt",
+    "static/js/2.ca2dc44c.chunk.js.LICENSE.txt": "/blockchain/static/js/2.ca2dc44c.chunk.js.LICENSE.txt",
     "static/media/Box.8f4c3979.png": "/blockchain/static/media/Box.8f4c3979.png",
     "static/media/Cancel-sales.7dce9348.png": "/blockchain/static/media/Cancel-sales.7dce9348.png",
     "static/media/style.css": "/blockchain/static/media/et-line.d59b2385.woff",
@@ -44,8 +44,8 @@
   "entrypoints": [
     "static/js/runtime-main.3b7bd0cb.js",
     "static/css/2.e4e0784d.chunk.css",
-    "static/js/2.9ca56171.chunk.js",
+    "static/js/2.ca2dc44c.chunk.js",
     "static/css/main.2f94a801.chunk.css",
-    "static/js/main.fe322ec7.chunk.js"
+    "static/js/main.552942dd.chunk.js"
   ]
 }
