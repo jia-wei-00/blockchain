@@ -1,34 +1,21 @@
 {
   "files": {
     "main.css": "/blockchain/static/css/main.2f94a801.chunk.css",
-    "main.js": "/blockchain/static/js/main.2fcc9fc7.chunk.js",
-    "main.js.map": "/blockchain/static/js/main.2fcc9fc7.chunk.js.map",
+    "main.js": "/blockchain/static/js/main.616c2586.chunk.js",
+    "main.js.map": "/blockchain/static/js/main.616c2586.chunk.js.map",
     "runtime-main.js": "/blockchain/static/js/runtime-main.3b7bd0cb.js",
     "runtime-main.js.map": "/blockchain/static/js/runtime-main.3b7bd0cb.js.map",
     "static/css/2.e4e0784d.chunk.css": "/blockchain/static/css/2.e4e0784d.chunk.css",
-    "static/js/2.46fc8668.chunk.js": "/blockchain/static/js/2.46fc8668.chunk.js",
-    "static/js/2.46fc8668.chunk.js.map": "/blockchain/static/js/2.46fc8668.chunk.js.map",
+    "static/js/2.d67e7166.chunk.js": "/blockchain/static/js/2.d67e7166.chunk.js",
+    "static/js/2.d67e7166.chunk.js.map": "/blockchain/static/js/2.d67e7166.chunk.js.map",
     "index.html": "/blockchain/index.html",
     "static/css/2.e4e0784d.chunk.css.map": "/blockchain/static/css/2.e4e0784d.chunk.css.map",
     "static/css/main.2f94a801.chunk.css.map": "/blockchain/static/css/main.2f94a801.chunk.css.map",
-    "static/js/2.46fc8668.chunk.js.LICENSE.txt": "/blockchain/static/js/2.46fc8668.chunk.js.LICENSE.txt",
-    "static/media/Box.8f4c3979.png": "/blockchain/static/media/Box.8f4c3979.png",
-    "static/media/Cancel-sales.7dce9348.png": "/blockchain/static/media/Cancel-sales.7dce9348.png",
+    "static/js/2.d67e7166.chunk.js.LICENSE.txt": "/blockchain/static/js/2.d67e7166.chunk.js.LICENSE.txt",
     "static/media/style.css": "/blockchain/static/media/et-line.d59b2385.woff",
-    "static/media/Gift-away.ae3c505b.png": "/blockchain/static/media/Gift-away.ae3c505b.png",
-    "static/media/Level-1.b07d4615.png": "/blockchain/static/media/Level-1.b07d4615.png",
-    "static/media/Level-2.f04fbfbb.png": "/blockchain/static/media/Level-2.f04fbfbb.png",
-    "static/media/Level-3.a030ca16.png": "/blockchain/static/media/Level-3.a030ca16.png",
-    "static/media/Mystery-box.b66a447a.png": "/blockchain/static/media/Mystery-box.b66a447a.png",
-    "static/media/NFT-detail.2bf16e75.png": "/blockchain/static/media/NFT-detail.2bf16e75.png",
-    "static/media/On-sales.0f04f319.png": "/blockchain/static/media/On-sales.0f04f319.png",
     "static/media/SA-logo.93822d2b.png": "/blockchain/static/media/SA-logo.93822d2b.png",
-    "static/media/Update-price.78ee282c.png": "/blockchain/static/media/Update-price.78ee282c.png",
     "static/media/comingsoon.1a0e4b20.png": "/blockchain/static/media/comingsoon.1a0e4b20.png",
     "static/media/font-awesome.min.css": "/blockchain/static/media/fontawesome-webfont.f691f37e.woff",
-    "static/media/loading-shadow.fc84609e.png": "/blockchain/static/media/loading-shadow.fc84609e.png",
-    "static/media/loading.3deef396.png": "/blockchain/static/media/loading.3deef396.png",
-    "static/media/mystery-bg.5b73d5ae.png": "/blockchain/static/media/mystery-bg.5b73d5ae.png",
     "static/media/rare0.469132cc.gif": "/blockchain/static/media/rare0.469132cc.gif",
     "static/media/rare1.9f686dcb.gif": "/blockchain/static/media/rare1.9f686dcb.gif",
     "static/media/rare2.83956233.gif": "/blockchain/static/media/rare2.83956233.gif",
@@ -38,14 +25,13 @@
     "static/media/rare6.b034b72a.gif": "/blockchain/static/media/rare6.b034b72a.gif",
     "static/media/rare7.d34f5267.gif": "/blockchain/static/media/rare7.d34f5267.gif",
     "static/media/rare8.96711813.gif": "/blockchain/static/media/rare8.96711813.gif",
-    "static/media/rare9.17de6ebf.gif": "/blockchain/static/media/rare9.17de6ebf.gif",
-    "static/media/swap-bg.d1a8452e.png": "/blockchain/static/media/swap-bg.d1a8452e.png"
+    "static/media/rare9.17de6ebf.gif": "/blockchain/static/media/rare9.17de6ebf.gif"
   },
   "entrypoints": [
     "static/js/runtime-main.3b7bd0cb.js",
     "static/css/2.e4e0784d.chunk.css",
-    "static/js/2.46fc8668.chunk.js",
+    "static/js/2.d67e7166.chunk.js",
     "static/css/main.2f94a801.chunk.css",
-    "static/js/main.2fcc9fc7.chunk.js"
+    "static/js/main.616c2586.chunk.js"
   ]
 }
