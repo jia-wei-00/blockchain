@@ -22,6 +22,7 @@ const fetchDataFailed = (payload) => {
 };
 
 export const fetchData = (account) => {
+  const MarketPlaceAddress = "0x8e509Ce888766305a9065CEC31F5f57446F4194B";
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
@@ -37,12 +38,32 @@ export const fetchData = (account) => {
         .getState()
         .blockchain.MARKETPLACE.methods.fetchSellingItems(account)
         .call();
+      let checkApprove = await store
+        .getState()
+        .blockchain.RANDOMNFT.methods.isApprovedForAll(account, MarketPlaceAddress)
+        .call();
+      let retrieveMarketplace = await store
+        .getState()
+        .blockchain.MARKETPLACE.methods.fetchMarketItems()
+        .call();
+      let approveMarketplace = await store
+        .getState()
+        .blockchain.JTOKEN.methods.allowance(account, MarketPlaceAddress)
+        .call();
+      let balance = await store
+        .getState()
+        .blockchain.JTOKEN.methods.balanceOf(account)
+        .call();
 
       await dispatch(
         fetchDataSuccess({
           getJTokenBalance,
           getPlayerNFT,
           getSellingNFT,
+          checkApprove,
+          retrieveMarketplace,
+          approveMarketplace,
+          balance,
         })
       );
     } catch (err) {

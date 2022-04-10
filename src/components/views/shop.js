@@ -164,28 +164,32 @@ const Shop = () => {
   };
 
   const buyNFT = async () => {
-    dispatch(setLoadingTrue());
     let amount = Web3.utils.toWei(String("1"), "ether");
-    let tmp_hashedValue = amount + 1111;
-    let hashedValue = Web3.utils.sha3(tmp_hashedValue, { encoding: "hex" });
-    await toast.promise(
-      blockchain.RANDOMNFT.methods
-        .mintNFT(amount, hashedValue)
-        .send({ from: blockchain.account })
-        .once("error", (err) => {
-          console.log(err);
-          dispatch(setLoadingFalse());
-        })
-        .then((receipt) => {
-          dispatch(setLoadingFalse());
-          window.location.reload();
-        }),
-      {
-        pending: "Loading... Please wait",
-        success: "Success 👌",
-        error: "Error occur 🤯",
-      }
-    );
+    if (data.balance > amount) {
+      dispatch(setLoadingTrue());
+      let tmp_hashedValue = amount + 1111;
+      let hashedValue = Web3.utils.sha3(tmp_hashedValue, { encoding: "hex" });
+      await toast.promise(
+        blockchain.RANDOMNFT.methods
+          .mintNFT(amount, hashedValue)
+          .send({ from: blockchain.account })
+          .once("error", (err) => {
+            console.log(err);
+            dispatch(setLoadingFalse());
+          })
+          .then((receipt) => {
+            dispatch(setLoadingFalse());
+            window.location.reload();
+          }),
+        {
+          pending: "Loading... Please wait",
+          success: "Success 👌",
+          error: "Error occur 🤯",
+        }
+      );
+    } else {
+      toast.warn("insufficient JTOKEN!");
+    }
   };
 
   const approveNFTAddress = async () => {

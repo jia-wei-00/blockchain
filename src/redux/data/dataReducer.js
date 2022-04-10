@@ -1,10 +1,14 @@
 const initialState = {
   loading: false,
   getJTokenBalance: "",
+  approveMarketplace: "",
+  checkApprove: false,
+  retrieveMarketplace: [],
   getPlayerNFT: [],
   getSellingNFT: [],
   error: false,
   errorMsg: "",
+  balance: "",
 };
 
 const dataReducer = (state = initialState, action) => {
@@ -19,8 +23,12 @@ const dataReducer = (state = initialState, action) => {
         ...initialState,
         loading: false,
         getJTokenBalance: action.payload.getJTokenBalance,
+        checkApprove: action.payload.checkApprove,
+        retrieveMarketplace: action.payload.retrieveMarketplace,
         getPlayerNFT: action.payload.getPlayerNFT,
         getSellingNFT: action.payload.getSellingNFT,
+        approveMarketplace: action.payload.approveMarketplace,
+        balance: action.payload.balance,
       };
     case "CHECK_DATA_FAILED":
       return {

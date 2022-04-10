@@ -53,7 +53,7 @@ const Header = () => {
   }, []);
   return (
     <header id="myHeader" className="navbar white">
-      <div className="container">
+      <div className="container ">
         <div className="row w-100-nav">
           <BreakpointProvider>
             {/*SCREEN RESOLUTION <1200 */}
@@ -74,7 +74,7 @@ const Header = () => {
                     </NavLink>
                   </div>
                   <div className="navbar-item">
-                    <NavLink to="/error">
+                    <NavLink to="/marketplace">
                       {t("marketplace.label")}
                       <span className="lines"></span>
                     </NavLink>
@@ -100,7 +100,7 @@ const Header = () => {
                   </NavLink>
                 </div>
                 <div className="navbar-item">
-                  <NavLink to="/error">
+                  <NavLink to="/marketplace">
                     {t("marketplace.label")}
                     <span className="lines"></span>
                   </NavLink>

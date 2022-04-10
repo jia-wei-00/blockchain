@@ -206,7 +206,7 @@ const Swap = () => {
                     <p>NFT in this game will generate randomly.</p>
                   </li>
                   <li>
-                    <p>NFT can be sell in marketplace. (under development)</p>
+                    <p>NFT can be sell in marketplace.</p>
                   </li>
                 </ul>
               </Col>

@@ -117,6 +117,33 @@ contract RANDOMNFT is ERC721URIStorage, Ownable {
         }
     }
 
+    //GET ALL NFT FROM MARKETPLACE
+    function getAllMarketplaceNFT() public view returns (NFTS[] memory) {
+        uint256 nftCount;
+        uint256 totalNFTs = _tokenIds.current();
+
+        for (uint i = 1; i <= totalNFTs; i++) {
+            if (_tokenDetails[i].selling == true) {
+                nftCount++;
+            }
+        }
+
+        if (nftCount == 0) {
+            return new NFTS[](0);
+        } else {
+            NFTS[] memory result = new NFTS[](nftCount);
+            uint256 resultIndex = 0;
+            for (uint i = 1; i <= totalNFTs; i++) {
+                if (_tokenDetails[i].selling == true) {
+                    result[resultIndex] = _tokenDetails[i];
+                    result[resultIndex].tokenURI = tokenURI(i);
+                    resultIndex++;
+                }
+            }
+            return result;
+        }
+    }
+
     function getOwner (uint256 NFTID) external view returns (address) {
         return ownerOf(NFTID);
     }

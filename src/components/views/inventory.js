@@ -15,7 +15,12 @@ import { Button, Modal, InputGroup, FormControl } from "react-bootstrap";
 import Web3 from "web3";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setLoadingTrue, setLoadingFalse } from "../../redux/loading/loadingActions";
+import {
+  setLoadingTrue,
+  setLoadingFalse,
+} from "../../redux/loading/loadingActions";
+import useSharableState from "../../../src/SharableState.js";
+import { useBetween } from "use-between";
 
 const Inventory = () => {
   const dispatch = useDispatch();
@@ -27,24 +32,55 @@ const Inventory = () => {
   const [inventoryCount, setInventoryCount] = useState(0);
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
+  const [showApprove, setShowApprove] = useState(false);
+  const [approve, setApprove] = useState(false);
   const [nftid, setId] = useState("");
   const [rarity, setRarity] = useState("");
   const [amount, setAmount] = useState("");
   const [priceSymbol] = useState(["e", "E", "+", "-"]);
+  const { MarketPlaceAddress } = useBetween(useSharableState);
 
-  const handleShow = (rarity, id) => {
+  const handleShow = async(rarity, id) => {
     if (!loading.loading) {
-      setShow(true);
-      setId(id);
-      setRarity(rarity);
-      setAmount("");
+      if (approve === false) {
+        setShowApprove(true);
+      } else {
+        setShow(true);
+        setId(id);
+        setRarity(rarity);
+        setAmount("");
+      }
     }
   };
 
+  const approveMarketplace = async () => {
+    dispatch(setLoadingTrue());
+    await toast.promise(
+      blockchain.RANDOMNFT.methods
+        .setApprovalForAll(MarketPlaceAddress, true)
+        .send({ from: blockchain.account })
+        .once("error", (err) => {
+          console.log(err);
+          dispatch(setLoadingFalse());
+        })
+        .then((receipt) => {
+          dispatch(setLoadingFalse());
+          window.location.reload();
+        }),
+      {
+        pending: "Loading... Please wait",
+        success: "Success 👌",
+        error: "Error occur 🤯",
+      }
+    );
+  };
+
   const handleClose = () => setShow(false);
+  const handleCloseApprove = () => setShowApprove(false);
 
   const retrieveNFT = () => {
     if (data.getPlayerNFT.length !== 0) {
+      setApprove(data.checkApprove);
       setInventory(data.getPlayerNFT.slice(0, loadAmount));
       setInventoryCount(data.getPlayerNFT.length);
     }
@@ -314,6 +350,31 @@ const Inventory = () => {
               Sell
             </Button>
           </InputGroup>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={showApprove}
+        onHide={handleCloseApprove}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header>
+          <Modal.Title>Attention !</Modal.Title>
+          <i
+            onClick={loading.loading ? undefined : handleCloseApprove}
+            aria-hidden="true"
+            className="icon_close"
+          />
+        </Modal.Header>
+        <Modal.Body>You Need To Approve Marketplace Before Proceed!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseApprove}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={approveMarketplace}>
+            Approve
+          </Button>
         </Modal.Footer>
       </Modal>
 
