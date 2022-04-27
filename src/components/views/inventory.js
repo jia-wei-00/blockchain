@@ -40,7 +40,7 @@ const Inventory = () => {
   const [priceSymbol] = useState(["e", "E", "+", "-"]);
   const { MarketPlaceAddress } = useBetween(useSharableState);
 
-  const handleShow = async(rarity, id) => {
+  const handleShow = async (rarity, id) => {
     if (!loading.loading) {
       if (approve === false) {
         setShowApprove(true);
@@ -81,10 +81,15 @@ const Inventory = () => {
   const retrieveNFT = () => {
     if (data.getPlayerNFT.length !== 0) {
       setApprove(data.checkApprove);
-      setInventory(data.getPlayerNFT.slice(0, loadAmount));
-      setInventoryCount(data.getPlayerNFT.length);
+      let tmpInventory = data.getPlayerNFT.filter(function (nft) {
+        return nft.createdtime > 0;
+      });
+      setInventory(tmpInventory.slice(0, loadAmount));
+      setInventoryCount(tmpInventory.length);
     }
   };
+
+  console.log(inventory);
 
   const sellNFT = async () => {
     if (amount <= 0) {
