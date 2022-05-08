@@ -89,8 +89,6 @@ const Inventory = () => {
     }
   };
 
-  console.log(inventory);
-
   const sellNFT = async () => {
     if (amount <= 0) {
       toast.warn("Please insert a valid amount !", {
