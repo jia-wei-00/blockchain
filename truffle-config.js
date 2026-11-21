@@ -18,10 +18,25 @@
  *
  */
 
-const HDWalletProvider = require("@truffle/hdwallet-provider");
+// Contract tooling (truffle, @truffle/hdwallet-provider, truffle-plugin-verify)
+// is not part of the frontend dependencies; see README "Smart contracts".
 const fs = require("fs");
-const { mnemonic, BSCSCANAPIKEY } = require("./env.json");
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const path = require("path");
+
+// Secrets live in env.json (gitignored). Copy env.example.json to env.json
+// and fill in your own values. Only required for bscTestnet / bsc / verify.
+const envPath = path.join(__dirname, "env.json");
+const { mnemonic, BSCSCANAPIKEY } = fs.existsSync(envPath)
+  ? JSON.parse(fs.readFileSync(envPath, "utf8"))
+  : {};
+
+const HDWalletProvider = (...args) => {
+  if (!mnemonic) {
+    throw new Error("env.json with a mnemonic is required for this network");
+  }
+  const Provider = require("@truffle/hdwallet-provider");
+  return new Provider(...args);
+};
 
 module.exports = {
   plugins: ["truffle-plugin-verify"],
@@ -56,7 +71,7 @@ module.exports = {
     bscTestnet: {
       networkCheckTimeout: 100000000,
       provider: () =>
-        new HDWalletProvider(
+        HDWalletProvider(
           mnemonic,
           `https://data-seed-prebsc-2-s1.binance.org:8545/`
         ),
@@ -69,7 +84,7 @@ module.exports = {
     bsc: {
       networkCheckTimeout: 100000000,
       provider: () =>
-        new HDWalletProvider(mnemonic, `https://bsc-dataseed1.binance.org`),
+        HDWalletProvider(mnemonic, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
       confirmations: 1,
       timeoutBlocks: 200,
@@ -88,7 +103,7 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     // ropsten: {
-    // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
+    // provider: () => HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
     // network_id: 3,       // Ropsten's id
     // gas: 5500000,        // Ropsten has a lower block limit than mainnet
     // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
@@ -97,7 +112,7 @@ module.exports = {
     // },
     // Useful for private networks
     // private: {
-    // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
+    // provider: () => HDWalletProvider(mnemonic, `https://network.io`),
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
