@@ -1,13 +1,14 @@
-FROM node:12.16.1-alpine3.9 as build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 
 COPY ./package.json ./yarn.lock ./
-RUN yarn
+RUN yarn install --frozen-lockfile
 COPY src /app/
 COPY src ./src
 COPY public ./public
+COPY config-overrides.js ./
 RUN yarn build
 
 # stage 2 - build the final image and copy the react build files

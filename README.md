@@ -1,5 +1,26 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+## Requirements
+
+- Node.js 20 (see `.nvmrc`) and Yarn 1 (classic). `yarn.lock` is the only lockfile.
+- The app uses Create React App 5 via `react-app-rewired`; `config-overrides.js` adds the
+  Node core polyfills (`buffer`, `process`, `crypto`, `stream`, ...) that web3 1.x needs
+  under webpack 5.
+
+## Smart contracts
+
+The Solidity contracts (`contracts/`, `migrations/`, `truffle-config.js`) are deployed with
+Truffle, which is intentionally **not** a dependency of the frontend. Install the tooling
+separately when you need to compile or deploy:
+
+```sh
+npm install --no-save truffle @truffle/hdwallet-provider truffle-plugin-verify
+cp env.example.json env.json   # fill in your own mnemonic and BscScan API key
+npx truffle migrate --network bscTestnet
+```
+
+`env.json` is gitignored; never commit it.
+
 ## Available Scripts
 
 In the project directory, you can run:
